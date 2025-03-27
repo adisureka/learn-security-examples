@@ -31,5 +31,24 @@ This will create a database in MongoDB called __infodisclosure__. Verify its pre
 Answer the following:
 
 1. Briefly explain the potential vulnerabilities in **insecure.ts**
+Allow an attacker to pass mongose queries instead of sanitizing them
+- NoSQL Injection Vulnerability
+- Sensitive Data Exposure
+- Verbose Error Messages
+
+- If running on github then the attacker can run a query that is not supposed to be run
+- no sanitized usernames
+
+
 2. Briefly explain how a malicious attacker can exploit them.
+- Inject NoSQL queries that can exploit your system
+- Credential Theft via Data Exposure
+- Give the details of any user (Logging or sending raw database errors in production can provide attackers with insight into database structure, names, or misconfigurations)
+
+
 3. Briefly explain the defensive techniques used in **secure.ts** to prevent the information disclosure vulnerability?
+- Input Validation and Type Checking (ensuring the username is a string)
+- Input Sanitization to Prevent NoSQL Injection (no alphanumeric characters- prevents injection of MongoDB operators like $ne, $gt, etc., which are often used in NoSQL injection attacks.)
+- Safe Query Execution- eliminates the risk of unintended behavior due to query manipulation
+- Controlled Error Responses 
+
