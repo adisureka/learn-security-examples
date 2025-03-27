@@ -30,5 +30,21 @@ This example demonstrates spoofind through two ways -- Stealing cookies programm
 ## For you to answer
 
 1. Briefly explain the spoofing vulnerability in **insecure.ts**.
+- Weak Security Settings - "cookie: { httpOnly: false }" allows client-side JavaScript to read and manipulate the session cookie. 
+- There's no user authentication or validation logic to securely assign or check "req.session.user" 
+- An attacker could manually craft a request and spoof the session ("req.session.user = 'Admin';").
+
 2. Briefly explain different ways in which vulnerability can be exploited.
+- Manually Setting Session Cookie - An attacker could use tools like Postman or a browser extension to set a fake session cookie
+- No Login Flow / Access Control - attacker doesn’t need to bypass a login mechanism; they just need to assign "req.session.user = 'Admin'" themselves in a request.
+- Client-Side JavaScript Tampering
+
 3. Briefly explain why **secure.ts** does not have the spoofing vulnerability in **insecure.ts**.
+- "httpOnly: true" - As seen in the code of secure.ts 
+"cookie: {
+  httpOnly: true,
+  sameSite: true
+}"
+- Secure Secret Passed via CLI - prevents exposing the secret in code — it must be passed securely at runtime (e.g., via env vars or CLI).
+- Session-Based Identity Storage - only authenticated sessions will pass authorization checks.
+
